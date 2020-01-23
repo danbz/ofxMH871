@@ -76,7 +76,16 @@ void MH871::addPoint(ofVec2f pt){
     cache.push_back("PA"+ofToString(x)+","+ofToString(y)+";");
 }
 void MH871::plotPolyline(ofPolyline line){
-    vector<ofPoint> verts = line.getVertices();
+    // alteration by db 23/1/2020
+    vector<ofPoint> verts;
+    ofVec3f new3DPoint;
+    ofVec2f new2DPoint;
+    for (int i = 0; i<line.size(); i++){
+        new3DPoint = line[i];
+        new2DPoint.set(new3DPoint.x, new3DPoint.y);
+        verts.push_back( new2DPoint);
+    }
+   
     for(float i = 0; i < verts.size(); i++){
         if(i == 0){
             startPlot(verts[i]);
