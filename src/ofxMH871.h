@@ -13,8 +13,11 @@ public:
     void setup(string serialPort = "/dev/tty.KeySerial1");
     void setPrintSize(ofVec2f size);
     void setPrintSize(float width, float height);
+    ofVec2f getPrintSize();
+
     void setDrawingSize(ofVec2f size);
     void setDrawingSize(float width, float height);
+    ofVec2f getDrawingSize();
     void update();
     void draw();
     void plotPolyline(ofPolyline line);

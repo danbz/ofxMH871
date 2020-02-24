@@ -8,7 +8,7 @@
 
 #include "ofxMH871.h"
 void MH871::setup(string serialPort){
-    device.setup(serialPort, 19200);
+    device.setup(serialPort, 9600);
     initPlotter();
     penUp();
     timer.setFramerate(15);
@@ -52,6 +52,10 @@ void MH871::setPrintSize(ofVec2f size){
     setPrintSize(size.x, size.y);
 }
 
+ofVec2f MH871::getPrintSize(){
+    return printSize;
+}
+
 void MH871::setDrawingSize(float width, float height){
     drawingSize.x = width;
     drawingSize.y = height;
@@ -60,6 +64,11 @@ void MH871::setDrawingSize(float width, float height){
 void MH871::setDrawingSize(ofVec2f size){
     setDrawingSize(size.x, size.y);
 }
+
+ofVec2f MH871::getDrawingSize(){
+    return drawingSize;
+}
+
 
 void MH871::addPoint(ofPoint pt){
     ofVec2f fooP = mapPoint(pt);
