@@ -91,9 +91,11 @@ void ofApp::setup(){
     //which we will use to show part of the xml structure
     TTF.load("mono.ttf", 7);
     
-    plotter.setup("/dev/tty.USA19H22P1.1");
+    //plotter.setup("/dev/tty.USA19H22P1.1");
+    plotter.setup("/dev/tty.usbserial-1410");
+
     plotter.setDrawingSize(ofGetWidth(), ofGetHeight());
-    plotter.setPrintSize(5000, 5000*(ofGetHeight())/(ofGetWidth()));
+    plotter.setPrintSize(14000, 14000*(ofGetHeight())/(ofGetWidth()));
 }
 
 //--------------------------------------------------------------
@@ -116,7 +118,7 @@ void ofApp::draw(){
     ofEndShape(false);
     
     ofSetColor(240, 240, 240);
-    TTF.drawString("To plot the drawing press the space bar   status: "+message, 170, 12);
+    TTF.drawString("To plot the drawing press the space bar \n press 'r' to make random walk pattern \n   status: "+message, 170, 12);
    
     plotter.draw();
     
@@ -133,6 +135,21 @@ void ofApp::keyPressed  (int key){
     
     if(key == ' '){
         plotter.plotPolyline(line);
+    }
+    
+    if(key == 'r'){
+        // make random new line
+        line.clear();
+        ofPoint newPoint, nextPoint;
+        int stepSize = 50;
+        newPoint.set(plotter.getDrawingSize().x/2,plotter.getDrawingSize().y/2 );
+
+        for (int i=0; i<300; i++){
+            nextPoint.set( ofRandom(-stepSize, stepSize),ofRandom(-stepSize, stepSize) );
+            newPoint += nextPoint;
+            line.curveTo(newPoint);
+            // line.addVertex(newPoint);
+        }
     }
     
 }
